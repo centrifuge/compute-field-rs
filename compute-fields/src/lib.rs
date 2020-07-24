@@ -28,13 +28,26 @@ pub struct Attribute {
     pub signed: Signed,
 }
 
+/// fetch_bytes convert raw vec pointer to Vec<u8>
+pub fn fetch_bytes(pointer: *mut u8, size: usize) -> Vec<u8> {
+    let v: Vec<u8> = unsafe { Vec::from_raw_parts(pointer, size, size) };
+    v
+}
+
 /// fetch_attributes decodes the scale encoded Attribute Bytes and returns list of decoded attributes
-pub fn decode_attributes(pointer: *mut u8, size: usize) -> Result<Vec<Attribute>, String> {
-    let encode_attr_bytes: Vec<u8> = unsafe { Vec::from_raw_parts(pointer, size, size) };
+pub fn decode_attributes(encoded_attrs: Vec<u8>) -> Result<Vec<Attribute>, String> {
     let res: Result<Vec<Attribute>, Error> =
-        Vec::<Attribute>::decode::<&[u8]>(&mut encode_attr_bytes.as_slice());
+        Vec::<Attribute>::decode::<&[u8]>(&mut encoded_attrs.as_slice());
     match res {
         Ok(attributes) => Ok(attributes),
         Err(err) => Err(err.to_string()),
     }
+}
+
+/// convert the vector to pointer.
+/// Used when passing Vec from rust to foreign
+pub fn vec_to_ptr<T>(v: Vec<T>) -> *const T {
+    let ptr = v.as_ptr();
+    mem::forget(v);
+    ptr
 }

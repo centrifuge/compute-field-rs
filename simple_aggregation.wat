@@ -4,89 +4,108 @@
   (type (;2;) (func (param i32 i32) (result i32)))
   (type (;3;) (func (param i32 i32 i32)))
   (type (;4;) (func (param i32 i32 i32 i32) (result i32)))
-  (type (;5;) (func (param i32) (result i64)))
-  (type (;6;) (func (param i32)))
-  (type (;7;) (func (param i32) (result i32)))
-  (type (;8;) (func (param i32 i32 i32 i32)))
-  (type (;9;) (func))
+  (type (;5;) (func (param i32) (result i32)))
+  (type (;6;) (func))
+  (type (;7;) (func (param i32) (result i64)))
+  (type (;8;) (func (param i32)))
+  (type (;9;) (func (param i32 i32 i32 i32)))
   (type (;10;) (func (param i32 i32 i32 i32 i32 i32) (result i32)))
   (type (;11;) (func (param i64 i32 i32) (result i32)))
   (func $compute (type 2) (param i32 i32) (result i32)
-    (local i32 i32 i32 i32 i32)
+    (local i32 i32 i32 i32 i32 i32)
     global.get 0
-    i32.const 16
+    i32.const 32
     i32.sub
     local.tee 2
     global.set 0
+    local.get 2
+    local.get 0
+    local.get 1
+    call $_ZN14compute_fields11fetch_bytes17h2cf30e0e39680d36E
     i32.const 0
-    local.set 3
+    local.set 0
     local.get 2
     i32.const 0
-    i32.store offset=8
+    i32.store offset=24
     local.get 2
     i64.const 1
-    i64.store
+    i64.store offset=16
     local.get 2
+    i32.load offset=4
+    local.set 3
+    local.get 2
+    i32.load
+    local.set 1
+    local.get 2
+    i32.const 16
+    i32.add
     i32.const 0
-    local.get 1
+    local.get 2
+    i32.load offset=8
+    local.tee 4
     call $_ZN5alloc7raw_vec19RawVec$LT$T$C$A$GT$7reserve17hcf42ffa8c5b2789cE
+    local.get 2
+    i32.load offset=24
+    local.set 5
     block  ;; label = @1
-      local.get 1
+      local.get 4
       i32.eqz
       br_if 0 (;@1;)
-      local.get 0
       local.get 1
-      i32.add
-      local.set 4
-      local.get 2
-      i32.load
-      local.get 2
-      i32.load offset=8
-      local.tee 5
+      local.get 4
       i32.add
       local.set 6
+      local.get 2
+      i32.load offset=16
+      local.get 5
+      i32.add
+      local.set 7
       loop  ;; label = @2
-        local.get 6
-        local.get 3
-        i32.add
+        local.get 7
         local.get 0
-        local.get 3
+        i32.add
+        local.get 1
+        local.get 0
         i32.add
         i32.load8_u
         i32.const 1
         i32.add
         i32.store8
-        local.get 1
-        local.get 3
+        local.get 4
+        local.get 0
         i32.const 1
         i32.add
-        local.tee 3
+        local.tee 0
         i32.ne
         br_if 0 (;@2;)
       end
-      local.get 2
-      local.get 4
+      local.get 6
       local.get 5
-      local.get 0
+      local.get 1
       i32.sub
       i32.add
-      i32.store offset=8
-      local.get 1
+      local.set 5
+    end
+    local.get 2
+    local.get 5
+    i32.store offset=24
+    block  ;; label = @1
+      local.get 3
       i32.eqz
       br_if 0 (;@1;)
-      local.get 0
       local.get 1
+      local.get 3
       i32.const 1
       call $__rust_dealloc
     end
     local.get 2
-    i32.load
-    local.set 3
+    i32.load offset=16
+    local.set 0
     local.get 2
-    i32.const 16
+    i32.const 32
     i32.add
     global.set 0
-    local.get 3)
+    local.get 0)
   (func $_ZN5alloc7raw_vec19RawVec$LT$T$C$A$GT$7reserve17hcf42ffa8c5b2789cE (type 3) (param i32 i32 i32)
     (local i32)
     block  ;; label = @1
@@ -209,12 +228,60 @@
     local.set 4
     local.get 4
     return)
-  (func $_ZN36_$LT$T$u20$as$u20$core..any..Any$GT$7type_id17h56754634db5e7f2fE (type 5) (param i32) (result i64)
+  (func $allocate (type 5) (param i32) (result i32)
+    (local i32)
+    block  ;; label = @1
+      block  ;; label = @2
+        local.get 0
+        i32.const -1
+        i32.le_s
+        br_if 0 (;@2;)
+        block  ;; label = @3
+          local.get 0
+          br_if 0 (;@3;)
+          i32.const 1
+          return
+        end
+        local.get 0
+        i32.const 1
+        call $__rust_alloc
+        local.tee 1
+        i32.eqz
+        br_if 1 (;@1;)
+        local.get 1
+        return
+      end
+      call $_ZN5alloc7raw_vec19RawVec$LT$T$C$A$GT$11allocate_in28_$u7b$$u7b$closure$u7d$$u7d$17h0e522d5c7edc79c9E.llvm.15286878653109498206
+      unreachable
+    end
+    local.get 0
+    i32.const 1
+    call $_ZN5alloc7raw_vec19RawVec$LT$T$C$A$GT$11allocate_in28_$u7b$$u7b$closure$u7d$$u7d$17h710a0c7095481ee2E.llvm.15286878653109498206
+    unreachable)
+  (func $_ZN14compute_fields11fetch_bytes17h2cf30e0e39680d36E (type 3) (param i32 i32 i32)
+    local.get 0
+    local.get 2
+    i32.store offset=8
+    local.get 0
+    local.get 2
+    i32.store offset=4
+    local.get 0
+    local.get 1
+    i32.store)
+  (func $_ZN5alloc7raw_vec19RawVec$LT$T$C$A$GT$11allocate_in28_$u7b$$u7b$closure$u7d$$u7d$17h0e522d5c7edc79c9E.llvm.15286878653109498206 (type 6)
+    call $_ZN5alloc7raw_vec17capacity_overflow17h68628d0ac9272c65E
+    unreachable)
+  (func $_ZN5alloc7raw_vec19RawVec$LT$T$C$A$GT$11allocate_in28_$u7b$$u7b$closure$u7d$$u7d$17h710a0c7095481ee2E.llvm.15286878653109498206 (type 0) (param i32 i32)
+    local.get 0
+    local.get 1
+    call $_ZN5alloc5alloc18handle_alloc_error17h37203254b8cad21fE
+    unreachable)
+  (func $_ZN36_$LT$T$u20$as$u20$core..any..Any$GT$7type_id17h56754634db5e7f2fE (type 7) (param i32) (result i64)
     i64.const -4761075061836029191)
-  (func $_ZN36_$LT$T$u20$as$u20$core..any..Any$GT$7type_id17h67bc07ae363033afE (type 5) (param i32) (result i64)
+  (func $_ZN36_$LT$T$u20$as$u20$core..any..Any$GT$7type_id17h67bc07ae363033afE (type 7) (param i32) (result i64)
     i64.const -1261915248266411769)
-  (func $_ZN4core3ptr13drop_in_place17h01a2b324b9403b1dE (type 6) (param i32))
-  (func $_ZN4core3ptr13drop_in_place17h0930f00e07145758E (type 6) (param i32)
+  (func $_ZN4core3ptr13drop_in_place17h01a2b324b9403b1dE (type 8) (param i32))
+  (func $_ZN4core3ptr13drop_in_place17h0930f00e07145758E (type 8) (param i32)
     (local i32)
     block  ;; label = @1
       local.get 0
@@ -234,7 +301,7 @@
       i32.const 1
       call $__rust_dealloc
     end)
-  (func $_ZN4core3ptr13drop_in_place17h73d4775542387c46E (type 6) (param i32)
+  (func $_ZN4core3ptr13drop_in_place17h73d4775542387c46E (type 8) (param i32)
     (local i32)
     block  ;; label = @1
       local.get 0
@@ -265,7 +332,7 @@
       unreachable
     end
     local.get 0)
-  (func $_ZN4core6option15Option$LT$T$GT$6unwrap17hb18aafa7b728e985E (type 7) (param i32) (result i32)
+  (func $_ZN4core6option15Option$LT$T$GT$6unwrap17hb18aafa7b728e985E (type 5) (param i32) (result i32)
     block  ;; label = @1
       local.get 0
       br_if 0 (;@1;)
@@ -713,7 +780,7 @@
     local.get 0
     call $_ZN8dlmalloc8dlmalloc8Dlmalloc4free17h2a5c4170daac3278E
     local.get 2)
-  (func $rust_begin_unwind (type 6) (param i32)
+  (func $rust_begin_unwind (type 8) (param i32)
     (local i32 i32 i32)
     global.get 0
     i32.const 16
@@ -742,7 +809,7 @@
     local.get 2
     call $_ZN3std9panicking20rust_panic_with_hook17hf2c303df71675c7aE
     unreachable)
-  (func $_ZN3std9panicking20rust_panic_with_hook17hf2c303df71675c7aE (type 8) (param i32 i32 i32 i32)
+  (func $_ZN3std9panicking20rust_panic_with_hook17hf2c303df71675c7aE (type 9) (param i32 i32 i32 i32)
     (local i32 i32)
     global.get 0
     i32.const 32
@@ -1138,10 +1205,10 @@
     drop
     unreachable
     unreachable)
-  (func $__rust_start_panic (type 7) (param i32) (result i32)
+  (func $__rust_start_panic (type 5) (param i32) (result i32)
     unreachable
     unreachable)
-  (func $_ZN8dlmalloc8dlmalloc8Dlmalloc16malloc_alignment17h67fead39b72713bcE (type 7) (param i32) (result i32)
+  (func $_ZN8dlmalloc8dlmalloc8Dlmalloc16malloc_alignment17h67fead39b72713bcE (type 5) (param i32) (result i32)
     i32.const 8)
   (func $_ZN8dlmalloc8dlmalloc8Dlmalloc6malloc17hf4859b007f0a3e3bE (type 2) (param i32 i32) (result i32)
     (local i32 i32 i32 i32 i32 i32 i32 i32 i64)
@@ -5681,7 +5748,7 @@
     local.get 1
     call $rust_oom
     unreachable)
-  (func $_ZN5alloc7raw_vec17capacity_overflow17h68628d0ac9272c65E (type 9)
+  (func $_ZN5alloc7raw_vec17capacity_overflow17h68628d0ac9272c65E (type 6)
     i32.const 1048775
     i32.const 17
     i32.const 1048792
@@ -5694,7 +5761,7 @@
     loop (result i32)  ;; label = @1
       br 0 (;@1;)
     end)
-  (func $_ZN4core3ptr13drop_in_place17h04202f0701ce9779E (type 6) (param i32))
+  (func $_ZN4core3ptr13drop_in_place17h04202f0701ce9779E (type 8) (param i32))
   (func $_ZN4core9panicking18panic_bounds_check17h5449b3509749fb2fE (type 3) (param i32 i32 i32)
     (local i32)
     global.get 0
@@ -6196,12 +6263,12 @@
     i32.add
     global.set 0
     local.get 4)
-  (func $_ZN36_$LT$T$u20$as$u20$core..any..Any$GT$7type_id17h5939d59f1d6e827cE (type 5) (param i32) (result i64)
+  (func $_ZN36_$LT$T$u20$as$u20$core..any..Any$GT$7type_id17h5939d59f1d6e827cE (type 7) (param i32) (result i64)
     i64.const -4761075061836029191)
-  (func $_ZN4core5panic9PanicInfo7message17h1408574dfb4db11eE (type 7) (param i32) (result i32)
+  (func $_ZN4core5panic9PanicInfo7message17h1408574dfb4db11eE (type 5) (param i32) (result i32)
     local.get 0
     i32.load offset=8)
-  (func $_ZN4core5panic9PanicInfo8location17hf2ea3d8ea5e80033E (type 7) (param i32) (result i32)
+  (func $_ZN4core5panic9PanicInfo8location17hf2ea3d8ea5e80033E (type 5) (param i32) (result i32)
     local.get 0
     i32.load offset=12)
   (func $_ZN4core3fmt9Formatter12pad_integral17hf95c03236553ecadE (type 10) (param i32 i32 i32 i32 i32 i32) (result i32)
@@ -6836,44 +6903,6 @@
       end
     end
     local.get 0)
-  (func $_ZN5alloc7raw_vec19RawVec$LT$T$C$A$GT$11allocate_in28_$u7b$$u7b$closure$u7d$$u7d$17h0e522d5c7edc79c9E.llvm.15286878653109498206 (type 9)
-    call $_ZN5alloc7raw_vec17capacity_overflow17h68628d0ac9272c65E
-    unreachable)
-  (func $_ZN5alloc7raw_vec19RawVec$LT$T$C$A$GT$11allocate_in28_$u7b$$u7b$closure$u7d$$u7d$17h710a0c7095481ee2E.llvm.15286878653109498206 (type 0) (param i32 i32)
-    local.get 0
-    local.get 1
-    call $_ZN5alloc5alloc18handle_alloc_error17h37203254b8cad21fE
-    unreachable)
-  (func $allocate (type 7) (param i32) (result i32)
-    (local i32)
-    block  ;; label = @1
-      block  ;; label = @2
-        local.get 0
-        i32.const -1
-        i32.le_s
-        br_if 0 (;@2;)
-        block  ;; label = @3
-          local.get 0
-          br_if 0 (;@3;)
-          i32.const 1
-          return
-        end
-        local.get 0
-        i32.const 1
-        call $__rust_alloc
-        local.tee 1
-        i32.eqz
-        br_if 1 (;@1;)
-        local.get 1
-        return
-      end
-      call $_ZN5alloc7raw_vec19RawVec$LT$T$C$A$GT$11allocate_in28_$u7b$$u7b$closure$u7d$$u7d$17h0e522d5c7edc79c9E.llvm.15286878653109498206
-      unreachable
-    end
-    local.get 0
-    i32.const 1
-    call $_ZN5alloc7raw_vec19RawVec$LT$T$C$A$GT$11allocate_in28_$u7b$$u7b$closure$u7d$$u7d$17h710a0c7095481ee2E.llvm.15286878653109498206
-    unreachable)
   (table (;0;) 16 16 funcref)
   (memory (;0;) 17)
   (global (;0;) (mut i32) (i32.const 1048576))
