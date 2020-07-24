@@ -1,0 +1,11 @@
+[package]
+name = "simple-aggregation"
+version = "0.1.0"
+authors = ["vedhavyas <vedhavyas.singareddi@gmail.com>"]
+edition = "2018"
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+compute-fields = { path="../compute-fields" }
