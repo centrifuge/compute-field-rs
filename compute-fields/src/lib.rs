@@ -29,13 +29,14 @@ pub struct Attribute {
 }
 
 /// fetch_bytes convert raw vec pointer to Vec<u8>
-pub fn fetch_bytes(pointer: *mut u8, size: usize) -> Vec<u8> {
+fn fetch_bytes(pointer: *mut u8, size: usize) -> Vec<u8> {
     let v: Vec<u8> = unsafe { Vec::from_raw_parts(pointer, size, size) };
     v
 }
 
 /// fetch_attributes decodes the scale encoded Attribute Bytes and returns list of decoded attributes
-pub fn decode_attributes(encoded_attrs: Vec<u8>) -> Result<Vec<Attribute>, String> {
+pub fn decode_attributes(pointer: *mut u8, size: usize) -> Result<Vec<Attribute>, String> {
+    let encoded_attrs = fetch_bytes(pointer, size);
     let res: Result<Vec<Attribute>, Error> =
         Vec::<Attribute>::decode::<&[u8]>(&mut encoded_attrs.as_slice());
     match res {
