@@ -1,5 +1,5 @@
 [workspace]
 members = [
     "compute-fields",
-    "simple-aggregation",
+    "simple-average",
 ]

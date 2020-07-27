@@ -1,5 +1,5 @@
 [package]
-name = "simple-aggregation"
+name = "simple-average"
 version = "0.1.0"
 authors = ["vedhavyas <vedhavyas.singareddi@gmail.com>"]
 edition = "2018"
