@@ -19,6 +19,7 @@ pub extern "C" fn compute(pointer: *mut u8, size: usize) -> *const u8 {
 /// averages all the attributes and returns risk and value
 /// assumes each value is u128
 fn average(attributes: Vec<Attribute>) -> Option<u128> {
+    let len = attributes.len();
     attributes
         .into_iter()
         .fold(Some(0 as u128), |acc: Option<u128>, attr| {
@@ -35,4 +36,5 @@ fn average(attributes: Vec<Attribute>) -> Option<u128> {
                 }
             }
         })
+        .and_then(|s: u128| s.checked_div(len as u128))
 }
